@@ -26,7 +26,7 @@ enleve(X,[Y|L],[Y|L2]) :- enleve(X,L,L2).
 
 
 /*Generer un nouvel identificateur qui est fourni en sortie dans Nom*/
-
+compteur(1).
 genere(Nom) :- compteur(V),nombre(V,L1),
                 concat([105,110,115,116],L1,L2),
                 V1 is V+1,
