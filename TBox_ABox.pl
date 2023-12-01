@@ -27,12 +27,20 @@ rname(aEcrit).
 rname(aEdite).
 rname(aEnfant).
 
+
 /*TBox*/
 
 equiv(sculpteur,and(personne,some(aCree,sculpture))).
 equiv(auteur,and(personne,some(aEcrit,livre))).
 equiv(editeur,and(personne,and(not(some(aEcrit,livre)),some(aEdite,livre)))).
 equiv(parent,and(personne,some(aEnfant,anything))).
+
+/*donner une auto-reference
+rname(creePar).
+cnamena(sculpture). il faut passer sculpture en non atomique
+equiv(sculpture,and(objet,all(creePar,sculpteur))).
+*/
+
 
 /*ABox*/
 
@@ -41,9 +49,15 @@ inst(michelAnge,personne).
 inst(david,sculpture).
 inst(sonnets,livre).
 inst(vinci,personne).
+inst(joconde,objet).
+/*
+inst(tibi,personne).
+avec ca, syntaxe ABox n'est pas verifie car on n'a pas declare tibi
+inst(david,etudiant).
+pareil, mais on n'a pas declare etudiant
+*/
 
 /*Predicats pour les instantiations de roles*/
-inst(joconde,objet).
 instR(michelAnge, david, aCree).
 instR(michelAnge, sonnets, aEcrit).
 instR(vinci, joconde, aCree).
