@@ -52,16 +52,3 @@ acquisition_prop_type2(Abi,Abi1,Tbox) :- get_prop_type2(Concept1, Concept2),
                                          traitement_prop_type2(and(Concept1, Concept2), (Instance, (new_Concept1, new_Concept2))),
                                          /*ajouter (Instance, (new_Concept1, new_Concept2)) a la ABox*/
                                          concat(Abi,[(Instance, (new_Concept1, new_Concept2))], Abi1).
-
-
-
-
-
-
-
-
-
-
-
-
-
