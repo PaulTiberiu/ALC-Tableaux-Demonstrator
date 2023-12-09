@@ -50,6 +50,14 @@ inst(david,sculpture).
 inst(sonnets,livre).
 inst(vinci,personne).
 inst(joconde,objet).
+
+/*a mettre en commentaire*/
+/*
+iname(tibi).
+inst(tibi, personne).
+instR(tibi, david, aCree).
+*/
+
 /*
 inst(tibi,personne).
 avec ca, syntaxe ABox n'est pas verifie car on n'a pas declare tibi
