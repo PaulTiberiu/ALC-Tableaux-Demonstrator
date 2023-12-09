@@ -25,13 +25,18 @@ get_prop_type1(Instance, Concept) :- write("--Traiter une proposition de type1--
 
 /*Simplifier Concept, recuperer sa negation et mettre sous nnf*/
 traitement_prop_type1((Instance, Concept), (Instance, New_Concept)):- remplacer(not(Concept), Not_Concept_simplifie),
-                                                                        nnf(Not_Concept_simplifie, New_Concept).
+                                                                        nnf(Not_Concept_simplifie, New_Concept),
+                                                                        write("Nouveau concept simplifie et mis sous nnf : "), write(New_Concept),nl.
 /*Note : le resultat de cette etape est de construire un nouveau element (Instance, New_Concept) pour lequel New_Concept est la negation de Concept simplifié qu'on met sous nnf*/
 
-acquisition_prop_type1(Abi,Abi1,Tbox) :- get_prop_type1(Instance, Concept),
+acquisition_prop_type1(Abi, Abi1, TBox) :- get_prop_type1(Instance, Concept),
                                          traitement_prop_type1((Instance, Concept), (Instance, New_Concept)),
+                                         traitement_TBox(Tbox),
+                                         traitement_ABox(Abi),
                                          /*ajouter (Instance, new_Concept) a la ABox*/
-                                         concat(Abi,[(Instance, New_Concept)], Abi1).
+                                         concat(Abi,[(Instance, New_Concept)], Abi1),
+                                         write("Abi1 : "), write(Abi1), nl.
+                                         
 
 /*--------------Acquisition d'une proposition de type 2--------------*/
 get_prop_type2(Concept1, Concept2) :- write("--Traiter une proposition de type2--"),nl,
@@ -41,14 +46,21 @@ get_prop_type2(Concept1, Concept2) :- write("--Traiter une proposition de type2-
                                     (syntaxeConcept(and(Concept1, Concept2));
                                     write("Error : syntaxe de la ABox non respectee, au moins un des deux concepts introduits n'est pas defini"),nl, fail).
 
-/*Simplifier les deux concepts, recuperer la negation et mettre sous nnf*/
-traitement_prop_type2(and(Concept1, Concept2), (Instance, (New_Concept1, New_Concept2))):- remplacer(Concept1, Concept1_simplifie),
+/*Simplifier les deux concepts et les mettre sous nnf*/
+traitement_prop_type2(and(Concept1, Concept2), (Instance, and(New_Concept1, New_Concept2))):- remplacer(Concept1, Concept1_simplifie),
                                                                                         remplacer(Concept2, Concept2_simplifie),
                                                                                         nnf(Concept1_simplifie, New_Concept1),
-                                                                                        nnf(Concept2_simplifie, New_Concept2).
+                                                                                        nnf(Concept2_simplifie, New_Concept2),
+                                                                                        write("Concept1 simplifie et mis sous nnf : "), write(New_Concept1),nl,
+                                                                                        write("Concept2 simplifie et mis sous nnf : "), write(New_Concept2),nl.
 /*Note : le resultat de cette etape est de creer une nouvelle instance qui est une conjonction des deux nouveaux concepts resultant de la simplification et la mise sous nnf des concepts introduits par l'utilisateur*/
 
 acquisition_prop_type2(Abi,Abi1,Tbox) :- get_prop_type2(Concept1, Concept2),
-                                         traitement_prop_type2(and(Concept1, Concept2), (Instance, (New_Concept1, New_Concept2))),
-                                         /*ajouter (Instance, (new_Concept1, new_Concept2)) a la ABox*/
-                                         concat(Abi,[(Instance, (New_Concept1, New_Concept2))], Abi1).
+                                         traitement_prop_type2(and(Concept1, Concept2), (Instance, and(New_Concept1, New_Concept2))),
+                                         traitement_TBox(Tbox),
+                                         traitement_ABox(Abi),
+                                         /*ajouter (Instance, and(new_Concept1, new_Concept2)) a la ABox*/
+                                         concat(Abi,[(Instance, and(New_Concept1, New_Concept2))], Abi1),
+                                         write("Abi1: "), write(Abi1), nl.
+
+
