@@ -105,12 +105,14 @@ transformation_and(Lie, Lpt, [(I, and(C1, C2))|Li_suite], Lu, Ls, Abr) :-
                                                                         affiche_evolution_Abox(Ls, Lie, Lpt, [(I,and(C1,C2))|Li_suite], Lu, Abr, Ls1, Lie1, Lpt1, Li1, Lu1, Abr),
                                                                         resolution(Lie1,Lpt1,Li1,Lu1,Ls1,Abr).
 
+
 transformation_or(Lie, Lpt, Li, [(I, or(C1, C2))|Lu_suite], Ls, Abr) :- 
-                                                                        /**/
+                                                                        /*Creer premier noeud : ajouter I:C1 au noeud en cours de traitement*/
                                                                         evolue((I,C1), Lie, Lpt, Li, Lu_suite, Ls, Lie1, Lpt1, Li1, Lu1, Ls1),
                                                                         affiche_evolution_Abox(Ls, Lie, Lpt, Li, [(I,or(C1,C2))|Lu_suite], Abr, Ls1, Lie1, Lpt1, Li1, Lu1, Abr),
                                                                         resolution(Lie1,Lpt1,Li1,Lu1,Ls1,Abr),
                                                                         write("APPLICATION TRANSFORMATION OR => SEPARATION DANS L'ARBORESCENCE"),nl,
+                                                                        /*Creer deuxieme noeud : ajouter I:C2 a Lu_suite, le resultat est dans Lu2*/
                                                                         evolue((I,C2),Lie, Lpt, Li, Lu_suite, Ls, Lie2, Lpt2, Li2, Lu2, Ls2),
                                                                         affiche_evolution_Abox(Ls, Lie, Lpt, Li, [(I,or(C1,C2))|Lu_suite], Abr, Ls2, Lie2, Lpt2, Li2, Lu2, Abr),
                                                                         resolution(Lie2,Lpt2,Li2,Lu2,Ls2,Abr).                                                                
